@@ -27,16 +27,42 @@ function Lib(name){
 		for (var i = 0; i < this.inventory.length; i++) {
 			this.inventory[i].displayAllInfo();
 		};
-	}
+	};
 
+	this.userMenu = function(){
+		var userSelection = getUserInput(this.name + " Library\n----------------------\nChoose from the options below\n 1- Display inventory\n 2- Add book to inventory\n quit- Log off");
+		switch(userSelection) {
+		    case '1':
+		    	console.log("Ok, Display inventory.");
+		        this.displayInventory();
+		        return this.userMenu();
+		        break;
+		    case '2':
+		    	console.log("Ok, Add book to inventory.");
+		    	this.addBook();
+		        return this.userMenu();
+		        break;
+		    case 'quit':
+		    	// var isSure = getUserInput("Are you sure you want to log off? y/n")
+		    	// if (isSure === "n") {
+		    	// 	return this.userMenu;
+		    	// } else if (isSure === "y"){
+		    		console.log("Goodbye.");
+		    		break;
+		    	// } else{
+		    	// 	console.log("You have not entered a valid option. Try again.");
+		     //    return this.userMenu();
+		    	// };
+		    default:
+		        console.log("You have not entered a valid option. Try again.");
+		        return this.userMenu();
+		}
+	}
 }
 
 var objectington = new Lib("Objectington");
 
-objectington.addBook();
-objectington.addBook();
-console.log(objectington.inventory)
-objectington.displayInventory();
+objectington.userMenu();
 
 // var javaScriptForDummies = new Book("JavaScript For Dummies","Mr. Dummie","non-fiction", 342, true);
 
