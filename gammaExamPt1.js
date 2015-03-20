@@ -15,8 +15,29 @@ function Book(title, author, genre, length, isCheckedIn){
 	}
 }
 
+function Lib(name){
+	this.name = name;
+	this.inventory = [];
 
+	this.addBook = function(){
+		this.inventory.push(new Book(getUserInput("Enter the info for the book you want to add.\nTitle: "), getUserInput("Author: "), getUserInput("Genre: "), getUserInput("Number of pages: "), true))
+	};
 
-var javaScriptForDummies = new Book("JavaScript For Dummies","Mr. Dummie","non-fiction", 342, true);
+	this.displayInventory = function(){
+		for (var i = 0; i < this.inventory.length; i++) {
+			this.inventory[i].displayAllInfo();
+		};
+	}
 
-javaScriptForDummies.displayAllInfo();
+}
+
+var objectington = new Lib("Objectington");
+
+objectington.addBook();
+objectington.addBook();
+console.log(objectington.inventory)
+objectington.displayInventory();
+
+// var javaScriptForDummies = new Book("JavaScript For Dummies","Mr. Dummie","non-fiction", 342, true);
+
+// javaScriptForDummies.displayAllInfo();
