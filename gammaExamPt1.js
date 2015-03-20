@@ -21,7 +21,7 @@ function Lib(name){
 
 	this.returnIndexOfBookInInventory = function(key,value){
 		for (var i = 0; i < this.inventory.length; i++) {
-			if (this.inventory[i].key === value){
+			if (this.inventory[i]["key"] === "value"){
 				return i;
 			}else {
 				return -1;
@@ -32,12 +32,14 @@ function Lib(name){
 	this.serchForBook = function(){
 		var key = getUserInput("What would you like to serch by? title/author/genre");
 		var value = getUserInput("Enter the " + key + " you are searching for:");
-		var index = this.returnIndexOfBookInInventory(key,value);
-		this.inventory[index].displayAllInfo;
+		console.log(this.returnIndexOfBookInInventory(key,value));
+		this.displayBookByIndex(this.returnIndexOfBookInInventory(key,value));
 		return this.userMenu;
 	};
 
-
+	this.displayBookByIndex = function(index){
+		this.inventory[index].displayAllInfo();
+	}
 
 	this.addBook = function(){
 		this.inventory.push(new Book(getUserInput("Enter the info for the book you want to add.\nTitle: "), getUserInput("Author: "), getUserInput("Genre: "), getUserInput("Number of pages: "), true))
@@ -87,8 +89,8 @@ function Lib(name){
 
 var objectington = new Lib("Objectington");
 
+objectington.inventory.push(new Book("foo","bar","fic", 34, true));
+objectington.inventory.push(new Book("this","that","non-fic", 334, true));
+objectington.inventory.push(new Book("JavaScript For Dummies","Mr. Dummie","non-fic", 342, true));
+
 objectington.userMenu();
-
-// var javaScriptForDummies = new Book("JavaScript For Dummies","Mr. Dummie","non-fiction", 342, true);
-
-// javaScriptForDummies.displayAllInfo();
