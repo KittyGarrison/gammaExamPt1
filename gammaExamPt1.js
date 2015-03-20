@@ -62,8 +62,18 @@ function Lib(name){
 		};
 	};
 
+	this.displayAllOfGenre = function(){
+		var genre = getUserInput("Enter the genre you wish to display:")
+		for (var i = 0; i < this.inventory.length; i++) {
+			if (this.inventory[i].genre === genre){
+			this.inventory[i].displayAllInfo();
+			}
+		return this.userMenu()	
+		};
+	}
+
 	this.userMenu = function(){
-		var userSelection = getUserInput(this.name + " Library\n----------------------\nChoose from the options below\n 1- Display inventory\n 2- Add book to inventory\n 3- Remove book from inventory\n 4- Search for book\n quit- Log off");
+		var userSelection = getUserInput(this.name + " Library\n----------------------\nChoose from the options below\n 1- Display inventory\n 2- Add book to inventory\n 3- Remove book from inventory\n 4- Search for book\n 5- Display all books in genre\n quit- Log off");
 		switch(userSelection) {
 		    case '1':
 		    	console.log("Ok, display inventory.");
@@ -85,6 +95,12 @@ function Lib(name){
 		    	this.serchForBook();
 		        return this.userMenu();
 		        break;
+		    case '5':
+		    	console.log("Ok, display all books in genre.");
+		    	
+		        return this.userMenu();
+		        break;
+
 		    case 'quit':
 		    	// var isSure = getUserInput("Are you sure you want to log off? y/n")
 		    	// if (isSure === "n") {
