@@ -19,6 +19,26 @@ function Lib(name){
 	this.name = name;
 	this.inventory = [];
 
+	this.returnIndexOfBookInInventory = function(key,value){
+		for (var i = 0; i < this.inventory.length; i++) {
+			if (this.inventory[i].key === value){
+				return i;
+			}else {
+				return -1;
+			}
+		};
+	}
+
+	this.serchForBook = function(){
+		var key = getUserInput("What would you like to serch by? title/author/genre");
+		var value = getUserInput("Enter the " + key + " you are searching for:");
+		var index = this.returnIndexOfBookInInventory(key,value);
+		this.inventory[index].displayAllInfo;
+		return this.userMenu;
+	};
+
+
+
 	this.addBook = function(){
 		this.inventory.push(new Book(getUserInput("Enter the info for the book you want to add.\nTitle: "), getUserInput("Author: "), getUserInput("Genre: "), getUserInput("Number of pages: "), true))
 	};
@@ -30,16 +50,21 @@ function Lib(name){
 	};
 
 	this.userMenu = function(){
-		var userSelection = getUserInput(this.name + " Library\n----------------------\nChoose from the options below\n 1- Display inventory\n 2- Add book to inventory\n quit- Log off");
+		var userSelection = getUserInput(this.name + " Library\n----------------------\nChoose from the options below\n 1- Display inventory\n 2- Add book to inventory\n 3- search for book\n quit- Log off");
 		switch(userSelection) {
 		    case '1':
-		    	console.log("Ok, Display inventory.");
+		    	console.log("Ok, display inventory.");
 		        this.displayInventory();
 		        return this.userMenu();
 		        break;
 		    case '2':
-		    	console.log("Ok, Add book to inventory.");
+		    	console.log("Ok, add book to inventory.");
 		    	this.addBook();
+		        return this.userMenu();
+		        break;
+		    case '3':
+		    	console.log("Ok, search for book.");
+		    	this.serchForBook();
 		        return this.userMenu();
 		        break;
 		    case 'quit':
