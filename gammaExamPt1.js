@@ -19,9 +19,10 @@ function Lib(name){
 	this.name = name;
 	this.inventory = [];
 
+	// vvvvvvvvv not working
 	this.returnIndexOfBookInInventory = function(key,value){
 		for (var i = 0; i < this.inventory.length; i++) {
-			if (this.inventory[i]["key"] === "value"){
+			if (this.inventory[i].key == value){
 				return i;
 			}else {
 				return -1;
@@ -33,7 +34,9 @@ function Lib(name){
 		var key = getUserInput("What would you like to serch by? title/author/genre");
 		var value = getUserInput("Enter the " + key + " you are searching for:");
 		console.log(this.returnIndexOfBookInInventory(key,value));
-		this.displayBookByIndex(this.returnIndexOfBookInInventory(key,value));
+		// vvvvvvvvvvv this part is not working
+		//this.displayBookByIndex(this.returnIndexOfBookInInventory(key,value));
+		this.displayBookByIndex(0);//test value
 		return this.userMenu;
 	};
 
@@ -45,6 +48,14 @@ function Lib(name){
 		this.inventory.push(new Book(getUserInput("Enter the info for the book you want to add.\nTitle: "), getUserInput("Author: "), getUserInput("Genre: "), getUserInput("Number of pages: "), true))
 	};
 
+	this.removeBookByTitle = function(){
+		var bookToRemove = getUserInput("Enter the title of the book to be removed:")
+		var index = this.returnIndexOfBookInInventory(title,bookToRemove);
+		console.log(this.inventory[index].title)
+		this.inventory.splice(index, 1);
+		return this.userMenu();
+	}
+
 	this.displayInventory = function(){
 		for (var i = 0; i < this.inventory.length; i++) {
 			this.inventory[i].displayAllInfo();
@@ -52,7 +63,7 @@ function Lib(name){
 	};
 
 	this.userMenu = function(){
-		var userSelection = getUserInput(this.name + " Library\n----------------------\nChoose from the options below\n 1- Display inventory\n 2- Add book to inventory\n 3- search for book\n quit- Log off");
+		var userSelection = getUserInput(this.name + " Library\n----------------------\nChoose from the options below\n 1- Display inventory\n 2- Add book to inventory\n 3- Remove book from inventory\n 4- Search for book\n quit- Log off");
 		switch(userSelection) {
 		    case '1':
 		    	console.log("Ok, display inventory.");
@@ -65,6 +76,11 @@ function Lib(name){
 		        return this.userMenu();
 		        break;
 		    case '3':
+		    	console.log("Ok, remove book from inventory.");
+		    	this.removeBookByTitle();
+		        return this.userMenu();
+		        break;
+		    case '4':
 		    	console.log("Ok, search for book.");
 		    	this.serchForBook();
 		        return this.userMenu();
